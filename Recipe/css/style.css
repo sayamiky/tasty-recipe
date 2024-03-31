@@ -1,0 +1,26 @@
+:root {
+  --base-color: #4c4ddc;
+}
+
+.btn.btn-category {
+  --bs-btn-font-weight: 400;
+  --bs-btn-color: #404040;
+  --bs-btn-bg: var(--bs-white);
+  --bs-btn-border-color: #c2c2c2;
+  --bs-btn-border-radius: 1.5rem;
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: var(--base-color);
+  --bs-btn-hover-border-color: var(--base-color);
+  --bs-btn-focus-shadow-rgb: var(--base-color);
+  --bs-btn-active-color: var(--bs-white);
+  --bs-btn-active-bg: var(--base-color);
+  --bs-btn-active-border-color: var(--base-color);
+}
+
+.btn.btn-signup {
+  --bs-btn-font-weight: 400;
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-bg: #4c4ddc;
+  --bs-btn-border-color: #4;
+  --bs-btn-border-radius: 1.5rem;
+}
