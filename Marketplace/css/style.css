@@ -25,6 +25,16 @@
   --bs-btn-hover-color: var(--base-color);
 }
 
+.btn.btn-collection {
+  --bs-btn-font-weight: 400;
+  --bs-btn-color: var(--base-color);
+  --bs-btn-bg: rgb(211, 229, 230);
+  --bs-btn-border: none;
+  --bs-btn-hover-color: var(--bs-white);
+  --bs-btn-hover-bg: var(--base-color);
+  --bs-btn-hover-border-color: var(--base-color);
+}
+
 .jumbotron {
   background-color: #fff;
   padding: 0;
