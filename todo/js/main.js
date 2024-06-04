@@ -49,9 +49,10 @@ let todoList = [
 
 
 const showTodo = (data) => {
+    console.log(data)
     let content = ""
     
-    todoList.forEach(element => {
+    data.forEach(element => {
          content += `
             <div class="card-body">
                 <h5 class="card-title">${element.todo}</h5>
@@ -99,7 +100,7 @@ const addData = () => {
         color = "#82A284";
       }
     todoList.push({date: date, time: time, todo: todo, color : color});
-    showTodo();
+    showTodo(todoList);
     clearData(); 
 }
 
@@ -110,13 +111,13 @@ const clearData = () => {
 }
 
 const sortAscending = () => {
-    todoList.sort(function(a, b){ return a.date - b.date});
-    showTodo();
+    todoList.sort((a, b) => new Date(a.date) - new Date(b.date));
+    showTodo(todoList);
 }
 
 const sortDescending = () => {
-    todoList.sort(function(a, b){ return b.todo - a.todo});
-    showTodo();
+    todoList.sort((a, b) => new Date(b.date) - new Date(a.date));
+    showTodo(todoList);
 }
 
 // Function delete courseList
@@ -131,10 +132,11 @@ const deleteTodo = (id) => {
 }
 
 // Function search
-const search = () => {
+const searchTodo = () => {
     let text = document.getElementById("search").value;
     
-    const result = todoList.filter(element => element.todo.indexOf(text) != -1)
-    
+    // const result = todoList.filter(element => element.todo.indexOf(text) != -1)
+    const result = todoList.filter(element => element.todo.toLowerCase().includes(text));
+    // console.log(result)
     showTodo(result);
 }
