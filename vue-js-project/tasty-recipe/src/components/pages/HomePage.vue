@@ -9,17 +9,36 @@
       </p>
     </div>
     <!-- <RecipeList/> -->
-    <recipe-list
-    :recipes="recipeList">
-
+    <recipe-list :recipes="recipeList" v-if="recipeListStatus">
+      <!-- M31 add v-if=" recipeListStatus"-->
     </recipe-list>
   </div>
 </template>
 <script setup>
-import RecipeList from '../recipe/RecipeList.vue';
-import RECIPE_DATA from '../../recipe.js'
+// import RecipeList from '../recipe/RecipeList.vue';
+// import RECIPE_DATA from '../../recipe.js'
 
-const recipeList = RECIPE_DATA
+// const recipeList = RECIPE_DATA
+
+// M31
+import RecipeList from "../recipe/RecipeList.vue";
+import { onMounted, ref } from "vue";
+import { useStore } from "vuex";
+
+
+const store = useStore();
+const recipeListStatus = ref(false);
+const recipeList = ref();
+
+onMounted(async () => {
+  try {
+    await store.dispatch("recipe/getRecipeData");
+    recipeListStatus.value = true;
+    recipeList.value = store.state.recipe.recipes;
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 </script>
 
