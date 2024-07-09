@@ -1,6 +1,7 @@
 import HomePage from "./components/pages/HomePage.vue";
 import LoginPage from "./components/pages/LoginPage.vue";
 import SignupPage from "./components/pages/SignupPage.vue";
+import DetailPage from "./components/pages/DetailPage.vue"
 
 export const routes = [
     {
@@ -18,4 +19,10 @@ export const routes = [
         name: "login", 
         component: LoginPage
     },
+    //M33
+    { 
+        path: "/recipe/:id", 
+        name: "detailPage", 
+        component: DetailPage 
+    }
 ];
