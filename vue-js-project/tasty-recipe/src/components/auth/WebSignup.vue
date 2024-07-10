@@ -42,20 +42,49 @@
           />
         </div>
         <div class="my-4">
+          <!-- M33 -->
           <base-input
             type="password"
-            identity="password"
-            label="Password"
+            identiy="password"
             placeholder="Your password"
-          />
+            label="Password"
+            v-model="signupData.password"
+            @keyInput="passwordCheck"
+          >
+          </base-input>
+          <p
+            class="text-danger mt-1 fw-medium"
+            style="font-size: 11px"
+            :style="{ display: passwordStatusDisplay }"
+          >
+            The password field must be at least 8 characters
+          </p>
         </div>
         <div class="my-4">
+          <!-- M33 -->
           <base-input
             type="password"
             identity="confirmationPassword"
             label="Confirmation Password"
             placeholder="Same with password"
-          />
+            v-model="signupData.confirmationPassword"
+            @keyInput="confirmationPasswordCheck"
+          >
+          </base-input>
+          <p
+            class="text-danger mt-1 fw-medium"
+            style="font-size: 11px"
+            :style="{ display: confirmPasswordDoesNotMacth }"
+          >
+            The password confirmation does not match
+          </p>
+          <p
+            class="text-success mt-1 fw-medium"
+            style="font-size: 11px"
+            :style="{ display: confirmPasswordMacth }"
+          >
+            The password confirmation does match
+          </p>
         </div>
         <div class="my-4">
           <base-input
@@ -63,11 +92,13 @@
             identity="recipeImage"
             label="Profile Photo"
             isImage="true"
+            @input="checkImage"
           >
+            <!-- M33 @input -->
             <div>
               <div class="border p-1 mt-2 rounded-circle">
                 <img
-                  src="../../assets/images/user.png"
+                  :src="signupData.imageLink"
                   class="rounded-circle"
                   width="140"
                   height="150"
@@ -99,4 +130,74 @@
 <script setup>
 import BaseInput from "../ui/BaseInput.vue";
 import BaseButton from "../ui/BaseButton.vue";
+
+//M33
+import { reactive, ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
+
+const signupData = reactive({
+  firstname: "",
+  lastname: "",
+  username: "",
+  email: "",
+  password: "",
+  confirmationPassword: "",
+  isLogin: false,
+  imageLink: "",
+});
+
+const passwordStatusDisplay = ref("none");
+const passwordCheck = () => {
+  if (signupData.password.length < 8) {
+    passwordStatusDisplay.value = "block";
+  } else {
+    passwordStatusDisplay.value = "none";
+  }
+};
+
+const confirmPasswordDoesNotMacth = ref("none");
+const confirmPasswordMacth = ref("none");
+
+const confirmationPasswordCheck = () => {
+  if (signupData.confirmationPassword === "") {
+    confirmPasswordDoesNotMacth.value = "none";
+    confirmPasswordMacth.value = "none";
+    return;
+  }
+  if (signupData.password !== signupData.confirmationPassword) {
+    confirmPasswordDoesNotMacth.value = "block";
+    confirmPasswordMacth.value = "none";
+    return;
+  }
+  confirmPasswordDoesNotMacth.value = "none";
+  confirmPasswordMacth.value = "block";
+};
+
+const checkImage = (e) => {
+  const file = e.target.files[0];
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+
+  reader.addEventListener("load", () => {
+    signupData.imageLink = reader.result;
+  });
+};
+
+const store = useStore();
+const router = useRouter();
+const register = async () => {
+  if (
+    signupData.password !== signupData.confirmationPassword ||
+    signupData.password.length < 8
+  ) {
+    signupData.confirmationPassword = "";
+    signupData.password = "";
+    confirmPasswordDoesNotMacth.value = "none";
+    confirmPasswordMacth.value = "none";
+  } else {
+    await store.dispatch("auth/getRegisterData", signupData);
+    router.push("/");
+  }
+};
 </script>
