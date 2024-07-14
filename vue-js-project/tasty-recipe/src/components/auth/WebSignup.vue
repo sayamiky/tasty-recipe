@@ -136,6 +136,9 @@ import { reactive, ref } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
+const store = useStore();
+const router = useRouter(); 
+
 const signupData = reactive({
   firstname: "",
   lastname: "",
@@ -184,8 +187,6 @@ const checkImage = (e) => {
   });
 };
 
-const store = useStore();
-const router = useRouter();
 const register = async () => {
   if (
     signupData.password !== signupData.confirmationPassword ||
