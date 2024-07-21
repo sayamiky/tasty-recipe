@@ -3,6 +3,7 @@ import LoginPage from "./components/pages/LoginPage.vue";
 import SignupPage from "./components/pages/SignupPage.vue";
 import DetailPage from "./components/pages/DetailPage.vue";
 import UserPage from "./components/pages/UserPage.vue";
+import EditRecipePage from "./components/pages/EditRecipePage.vue";
 import NewRecipePage from "./components/pages/NewRecipePage.vue";
 import Cookies from "js-cookie";
 import { store } from "./store/index";
@@ -73,5 +74,11 @@ export const routes = [
     beforeEnter: (to, from, next) => {
       checkAuth() ? next() : next({ name: "login" });
     },
+  },
+  //M38
+  {
+    path: "/recipe/edit/:id",
+    name: "editRecipePage",
+    component: EditRecipePage,
   },
 ];
