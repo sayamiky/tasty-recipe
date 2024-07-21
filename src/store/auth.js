@@ -33,7 +33,7 @@ export default {
   },
   actions: {
     async getRegisterData({ commit, dispatch }, payload) {
-      const APIkey = "AIzaSyAZw4XY-USmeiN9j1cLmxJ8W8mu_l2a19U";
+      const APIkey = "AIzaSyBiplEubIVlHTjhVka7qL-c8OLamlCVRB8";
       const authUrl =
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=";
       try {
@@ -66,7 +66,7 @@ export default {
     async addNewUser({ commit, state }, payload) {
       try {
         const { data } = await axios.post(
-          `https://recipe-vue-batch2-default-rtdb.firebaseio.com/user.json?auth=${state.token}`,
+          `https://recipe-vue-5fb49-default-rtdb.firebaseio.com/user.json?auth=${state.token}`,
           payload
         );
         commit("setUserLogin", { userData: payload, loginStatus: true });
@@ -75,7 +75,7 @@ export default {
       }
     },
     async getLoginData({ commit, dispatch }, payload) {
-      const APIkey = "AIzaSyAZw4XY-USmeiN9j1cLmxJ8W8mu_l2a19U";
+      const APIkey = "AIzaSyBiplEubIVlHTjhVka7qL-c8OLamlCVRB8";
       const authUrl =
         "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=";
       try {
@@ -97,7 +97,7 @@ export default {
     async getUser({ commit }, payload) {
       try {
         const { data } = await axios.get(
-          `https://recipe-vue-batch2-default-rtdb.firebaseio.com/user.json`
+          `https://recipe-vue-5fb49-default-rtdb.firebaseio.com/user.json`
         );
         for (let key in data) {
           if (data[key].userId === payload) {
